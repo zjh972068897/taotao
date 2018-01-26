@@ -18,6 +18,9 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>1.8</java.version>
+    <!--配置JDK的版本-->
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
     <junit.version>4.12</junit.version>
     <spring.version>4.2.4.RELEASE</spring.version>
     <mybatis.version>3.2.8</mybatis.version>
@@ -48,6 +51,7 @@
     <quartz.version>2.2.2</quartz.version>
   </properties>
 
+  <!--仅仅是对版本的统一管理 ，不会添加依赖的-->
   <dependencyManagement>
     <dependencies>
       <!-- 时间操作组件 -->
@@ -114,11 +118,7 @@
         <artifactId>mybatis-spring</artifactId>
         <version>${mybatis.spring.version}</version>
       </dependency>
-      <dependency>
-        <groupId>com.github.miemiedev</groupId>
-        <artifactId>mybatis-paginator</artifactId>
-        <version>${mybatis.paginator.version}</version>
-      </dependency>
+      <!--分页插件-->
       <dependency>
         <groupId>com.github.pagehelper</groupId>
         <artifactId>pagehelper</artifactId>
@@ -234,10 +234,8 @@
         <artifactId>freemarker</artifactId>
         <version>${freemarker.version}</version>
       </dependency>
-
     </dependencies>
   </dependencyManagement>
-
 
   <build>
     <plugins>
@@ -261,13 +259,17 @@
           <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
+
       <plugin>
-        <artifactId>maven-site-plugin</artifactId>
-        <configuration>
-          <locales>en,fr</locales>
-        </configuration>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <configuration>
+              <skipTests>true</skipTests>
+            </configuration>
       </plugin>
     </plugins>
+
+    <!--仅仅是插件的版本的统一管理 不会真的去加载插件-->
     <pluginManagement>
       <plugins>
         <!-- 配置Tomcat插件 -->
@@ -277,7 +279,7 @@
           <version>2.2</version>
         </plugin>
 
-        <!-- 配置打包时跳过测试 ，首次配置使用的时候会自动联网进行下载 -->
+        <!-- 配置打包时跳过测试  -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
@@ -287,5 +289,5 @@
     </pluginManagement>
   </build>
 
-</project>
 
+</project>
